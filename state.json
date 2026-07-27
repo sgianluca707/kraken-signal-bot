@@ -1,11 +1,11 @@
 {
-  "version": "3.0.0",
-  "signals": {},
-  "last_signal_at": {},
-  "paper_trades": [],
-  "last_daily_summary_date": null,
-  "last_run_utc": null,
-  "last_scan_assets": 0,
   "last_candidates": 0,
-  "last_signals_sent": 0
+  "last_daily_summary_date": "2026-07-27",
+  "last_run_utc": "2026-07-27T21:05:31.571399+00:00",
+  "last_scan_assets": 30,
+  "last_signal_at": {},
+  "last_signals_sent": 0,
+  "paper_trades": [],
+  "signals": {},
+  "version": "3.0.0"
 }
