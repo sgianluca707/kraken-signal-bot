@@ -1,132 +1,62 @@
-# Versione locale e GitHub
+# Kraken Signal Bot 3.0 Definitivo
 
-Per l'installazione senza computer acceso, leggi `INSTALLAZIONE_GITHUB.md`.
+Bot **solo segnali** per Kraken Pro. Non compra, non vende e non usa chiavi API Kraken private.
 
-# Kraken Signal Bot
+## Funzioni principali
 
-Bot di monitoraggio che controlla ogni minuto:
-
-- BTC/EUR
-- ETH/EUR
-- SOL/EUR
-- XRP/EUR
-- LINK/EUR
-- AVAX/EUR
-- ADA/EUR
-- DOGE/EUR
-- PAXG/EUR, con fallback XAUT/EUR o XAUT/USD se disponibili su Kraken
-
-Analizza trend 1h, struttura 15m, breakout 5m e volume. Invia in una sola notifica Telegram tutti i nuovi setup credibili.
+- 30 coppie EUR risolte dinamicamente tramite `AssetPairs`.
+- Analisi 1h, 15m e 5m usando solo candele completate.
+- Conferma del regime BTC per i segnali sulle altcoin.
+- Filtri su volume, spread, volatilità ATR, qualità della candela ed estensione dal breakout.
+- Punteggio qualità da 1 a 10; soglia predefinita 7,5.
+- Stop, TP1, TP2 e R/R netto stimato dopo commissioni conservative.
+- Cooldown di 6 ore per asset e deduplicazione.
+- Massimo 4 segnali per scansione.
+- Paper trading automatico e riepilogo giornaliero.
+- Stato e storico CSV salvati dal workflow GitHub.
+- Retry automatici e controlli sullo stato Kraken.
 
 ## Sicurezza
 
-Il bot **non compra e non vende**. Usa soltanto endpoint pubblici Kraken, quindi non richiede chiavi Kraken. Non inserire mai password, seed phrase o chiavi private.
+Il bot usa soltanto endpoint pubblici Kraken. I soli segreti richiesti sono quelli del bot Telegram:
 
-## 1. Installa Python
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
 
-Serve Python 3.10 o successivo.
+Non inserire mai password Kraken, seed phrase, chiavi private o codici 2FA.
 
-Verifica:
+## Installazione su GitHub
 
-```bash
-python3 --version
-```
+1. Carica tutti i file nella radice del repository, inclusa la cartella `.github`.
+2. In `Settings → Secrets and variables → Actions` conserva i due segreti Telegram già creati.
+3. In `Settings → Actions → General → Workflow permissions` seleziona **Read and write permissions**.
+4. Apri `Actions → Kraken Signal Bot 3.0 → Run workflow`.
+5. Per una prima prova seleziona `test_telegram`; poi esegui una scansione normale.
 
-## 2. Crea il bot Telegram
+Il workflow programmato parte circa ogni 5 minuti. GitHub può occasionalmente ritardare le esecuzioni programmate; per dati veramente continui servirà in seguito un VPS.
 
-1. Apri Telegram e cerca `@BotFather`.
-2. Scrivi `/newbot`.
-3. Segui le istruzioni e copia il token.
-4. Apri una chat con il nuovo bot e premi Avvia.
-5. Invia al bot un messaggio qualsiasi.
-6. Nel browser apri:
-
-```text
-https://api.telegram.org/botIL_TUO_TOKEN/getUpdates
-```
-
-7. Cerca `"chat":{"id":...}` e copia quel numero.
-
-Non condividere pubblicamente token e chat ID.
-
-## 3. Imposta le variabili
-
-### macOS / Linux
+## Comandi utili
 
 ```bash
-export TELEGRAM_BOT_TOKEN="incolla_token"
-export TELEGRAM_CHAT_ID="incolla_chat_id"
+python bot.py --validate
+python bot.py --test-telegram
+python bot.py --once --dry-run
+python bot.py --once --dry-run --max-assets 3
 ```
 
-### Windows PowerShell
+## Personalizzazione prudente
 
-```powershell
-$env:TELEGRAM_BOT_TOKEN="incolla_token"
-$env:TELEGRAM_CHAT_ID="incolla_chat_id"
-```
+Nel file `config.json`:
 
-## 4. Avvia
+- `minimum_score`: 7,5 produce un numero moderato di segnali.
+- `min_volume_ratio`: volume minimo rispetto alle 20 candele precedenti.
+- `max_spread_pct`: evita coppie con spread troppo elevato.
+- `risk_per_trade_pct`: rischio teorico usato solo nell'esempio Telegram.
+- `max_position_pct`: limite della posizione teorica rispetto al capitale d'esempio.
 
-Dentro la cartella:
+## Limiti
 
-```bash
-python3 bot.py
-```
-
-Il bot prova a risolvere automaticamente i nomi reali delle coppie tramite `AssetPairs`. Se una coppia non esiste, la salta e mostra un avviso.
-
-## Prova senza Telegram
-
-Avvia `python3 bot.py` senza impostare le variabili. Quando trova un setup, lo stampa nel terminale invece di inviarlo.
-
-## Tenerlo acceso 24/7
-
-Il computer deve rimanere acceso. Per un servizio continuo puoi eseguirlo su un piccolo server cloud, Raspberry Pi o computer domestico.
-
-### Avvio semplice su macOS/Linux
-
-```bash
-nohup python3 bot.py > bot.log 2>&1 &
-```
-
-### Arresto
-
-```bash
-pkill -f "python3 bot.py"
-```
-
-## Personalizzazione in config.json
-
-- `min_volume_ratio`: volume minimo rispetto alla media delle 20 candele precedenti.
-- `max_breakout_extension_pct`: estensione massima dal livello rotto; predefinita 0,5%.
-- `estimated_fee_each_side`: commissione stimata per lato. Il valore 0,004 equivale allo 0,4% ed è conservativo.
-- `min_net_rr2`: rapporto rischio/rendimento netto minimo sul TP2.
-- `scan_interval_seconds`: minimo 60 secondi.
-
-## Come decide il segnale
-
-Un breakout viene considerato solo quando:
-
-1. EMA20 sopra EMA50 su 1h, EMA20 crescente e prezzo sopra EMA20.
-2. La candela 5m completata chiude sopra la massima resistenza delle precedenti candele 15m.
-3. Il volume 5m è almeno 1,5 volte la media recente.
-4. Il prezzo corrente non è oltre lo 0,5% dal livello.
-5. Il rapporto rischio/rendimento netto stimato resta sufficiente.
-
-Il messaggio contiene sia:
-
-- `COMPRA ORA — SPECULATIVO`, massimo 5% del capitale;
-- `NON COMPRARE ANCORA — ATTENDI RETEST`, massimo 10% del capitale.
-
-Il bot non ripete lo stesso segnale finché non compare un breakout tecnicamente nuovo.
-
-## Limiti importanti
-
-- Il polling ogni minuto non garantisce dati vecchi meno di due minuti in ogni circostanza: rete, API o computer possono rallentare.
-- Il volume della candela chiusa è affidabile, ma il prezzo ticker può muoversi subito dopo.
-- I livelli sono calcolati automaticamente e non sostituiscono il controllo umano.
-- PAXG e XAUT sono token collegati all’oro: non sono oro fisico.
-- Il calcolo netto usa una commissione configurabile, non la tua tariffa Kraken reale.
+- Il paper trading è una simulazione e non riproduce perfettamente slippage, latenza e riempimento degli ordini.
+- Se stop e target vengono toccati nella stessa candela 5m, il bot registra prudentemente lo stop.
+- Un buon punteggio non è una probabilità certa di successo.
 - Nessun segnale garantisce un guadagno.
-
-**Questo segnale non garantisce un guadagno e con leva le perdite sono amplificate.**

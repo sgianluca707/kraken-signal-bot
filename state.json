@@ -1,1 +1,11 @@
-{"signals": {}}
+{
+  "version": "3.0.0",
+  "signals": {},
+  "last_signal_at": {},
+  "paper_trades": [],
+  "last_daily_summary_date": null,
+  "last_run_utc": null,
+  "last_scan_assets": 0,
+  "last_candidates": 0,
+  "last_signals_sent": 0
+}

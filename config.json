@@ -1,82 +1,80 @@
 {
-  "scan_interval_seconds": 60,
+  "version": "3.0.0",
+  "mode": "signals_only",
   "strategy": {
-    "min_volume_ratio": 1.7,
-    "max_breakout_extension_pct": 0.5,
+    "minimum_score": 7.5,
+    "min_volume_ratio": 1.45,
+    "max_spread_pct": 0.35,
+    "excellent_spread_pct": 0.10,
+    "max_breakout_extension_pct": 0.65,
+    "ideal_breakout_extension_pct": 0.25,
+    "max_retest_slippage_pct": 0.08,
+    "max_distance_to_resistance_pct": 1.2,
+    "max_prebreak_above_resistance_pct": 0.35,
+    "resistance_lookback_15m": 24,
+    "min_body_ratio": 0.42,
+    "min_close_position": 0.68,
+    "min_atr_pct": 0.12,
+    "max_atr_pct": 4.5,
     "min_stop_buffer_pct": 0.18,
-    "atr_stop_multiplier": 0.7,
+    "atr_stop_multiplier": 0.85,
     "tp1_r_multiple": 1.5,
     "tp2_r_multiple": 2.5,
     "estimated_fee_each_side": 0.004,
-    "min_net_rr2": 1.15
+    "min_net_rr2": 1.15,
+    "require_btc_confirmation_for_alts": true,
+    "btc_ema50_tolerance_pct": 0.5,
+    "cooldown_hours_per_asset": 6
+  },
+  "risk": {
+    "example_capital_eur": 200,
+    "risk_per_trade_pct": 0.5,
+    "max_position_pct": 20
+  },
+  "paper_trading": {
+    "enabled": true,
+    "max_trade_duration_hours": 24,
+    "daily_summary_enabled": true,
+    "daily_summary_hour_rome": 21
+  },
+  "runtime": {
+    "scan_interval_seconds": 300,
+    "max_assets_per_run": 30,
+    "max_signals_per_run": 4,
+    "http_timeout_seconds": 18,
+    "http_retries": 4,
+    "api_pause_seconds": 0.15
   },
   "assets": [
-    {
-      "asset": "BTC",
-      "pair_candidates": [
-        "BTC/EUR",
-        "XBT/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "ETH",
-      "pair_candidates": [
-        "ETH/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "SOL",
-      "pair_candidates": [
-        "SOL/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "XRP",
-      "pair_candidates": [
-        "XRP/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "LINK",
-      "pair_candidates": [
-        "LINK/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "AVAX",
-      "pair_candidates": [
-        "AVAX/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "ADA",
-      "pair_candidates": [
-        "ADA/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva"
-    },
-    {
-      "asset": "DOGE",
-      "pair_candidates": [
-        "DOGE/EUR",
-        "XDG/EUR"
-      ],
-      "instrument_note": "Kraken Spot senza leva; nessuna leva"
-    },
-    {
-      "asset": "GOLD",
-      "pair_candidates": [
-        "PAXG/EUR",
-        "XAUT/EUR",
-        "XAUT/USD"
-      ],
-      "instrument_note": "Token Spot collegato all’oro; non è oro fisico"
-    }
+    {"asset": "BTC", "pair_candidates": ["BTC/EUR", "XBT/EUR"]},
+    {"asset": "ETH", "pair_candidates": ["ETH/EUR"]},
+    {"asset": "SOL", "pair_candidates": ["SOL/EUR"]},
+    {"asset": "XRP", "pair_candidates": ["XRP/EUR"]},
+    {"asset": "LINK", "pair_candidates": ["LINK/EUR"]},
+    {"asset": "AVAX", "pair_candidates": ["AVAX/EUR"]},
+    {"asset": "ADA", "pair_candidates": ["ADA/EUR"]},
+    {"asset": "DOGE", "pair_candidates": ["DOGE/EUR", "XDG/EUR"]},
+    {"asset": "PAXG", "pair_candidates": ["PAXG/EUR"]},
+    {"asset": "SUI", "pair_candidates": ["SUI/EUR"]},
+    {"asset": "AAVE", "pair_candidates": ["AAVE/EUR"]},
+    {"asset": "INJ", "pair_candidates": ["INJ/EUR"]},
+    {"asset": "RENDER", "pair_candidates": ["RENDER/EUR", "RNDR/EUR"]},
+    {"asset": "FET", "pair_candidates": ["FET/EUR"]},
+    {"asset": "TAO", "pair_candidates": ["TAO/EUR"]},
+    {"asset": "ARB", "pair_candidates": ["ARB/EUR"]},
+    {"asset": "OP", "pair_candidates": ["OP/EUR"]},
+    {"asset": "DOT", "pair_candidates": ["DOT/EUR"]},
+    {"asset": "ATOM", "pair_candidates": ["ATOM/EUR"]},
+    {"asset": "LTC", "pair_candidates": ["LTC/EUR"]},
+    {"asset": "BCH", "pair_candidates": ["BCH/EUR"]},
+    {"asset": "UNI", "pair_candidates": ["UNI/EUR"]},
+    {"asset": "NEAR", "pair_candidates": ["NEAR/EUR"]},
+    {"asset": "FIL", "pair_candidates": ["FIL/EUR"]},
+    {"asset": "APT", "pair_candidates": ["APT/EUR"]},
+    {"asset": "ALGO", "pair_candidates": ["ALGO/EUR"]},
+    {"asset": "TRX", "pair_candidates": ["TRX/EUR"]},
+    {"asset": "PEPE", "pair_candidates": ["PEPE/EUR"]},
+    {"asset": "SHIB", "pair_candidates": ["SHIB/EUR"]},
+    {"asset": "BONK", "pair_candidates": ["BONK/EUR"]}
   ]
 }
