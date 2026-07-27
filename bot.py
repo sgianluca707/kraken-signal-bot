@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Kraken Signal Bot
+Kraken Signal Bot 2.0
 - Dati pubblici Kraken: nessuna API key necessaria.
 - Analisi: trend 1h, struttura 15m, breakout/volume 5m.
 - Notifiche Telegram raggruppate.
@@ -80,7 +80,7 @@ def load_config() -> Dict[str, Any]:
 def http_json(url: str, timeout: int = 15) -> Dict[str, Any]:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "KrakenSignalBot/1.0"}
+        headers={"User-Agent": "KrakenSignalBot/2.0"}
     )
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode("utf-8"))
@@ -466,7 +466,7 @@ def run_once(cfg: Dict[str, Any], pairs: Dict[str, Dict[str, str]]) -> None:
 
     age = max(1, int(time.time() - started))
     header = (
-        "📊 KRAKEN — NUOVI SETUP BREAKOUT\n"
+        "📊 KRAKEN SIGNAL BOT 2.0 — NUOVI SETUP\n"
         f"Asset validi: {len(setups)}\n"
         "Analisi: trend 1h, struttura 15m, ingresso 5m e volume.\n"
         "Tutti i setup sono Spot senza leva.\n\n"
@@ -493,7 +493,7 @@ def run_once(cfg: Dict[str, Any], pairs: Dict[str, Dict[str, str]]) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Kraken Signal Bot")
+    parser = argparse.ArgumentParser(description="Kraken Signal Bot 2.0")
     parser.add_argument(
         "--once",
         action="store_true",
