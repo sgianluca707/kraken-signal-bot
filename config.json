@@ -1,0 +1,82 @@
+{
+  "scan_interval_seconds": 60,
+  "strategy": {
+    "min_volume_ratio": 1.5,
+    "max_breakout_extension_pct": 0.5,
+    "min_stop_buffer_pct": 0.15,
+    "atr_stop_multiplier": 0.6,
+    "tp1_r_multiple": 1.5,
+    "tp2_r_multiple": 2.5,
+    "estimated_fee_each_side": 0.004,
+    "min_net_rr2": 1.0
+  },
+  "assets": [
+    {
+      "asset": "BTC",
+      "pair_candidates": [
+        "BTC/EUR",
+        "XBT/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "ETH",
+      "pair_candidates": [
+        "ETH/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "SOL",
+      "pair_candidates": [
+        "SOL/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "XRP",
+      "pair_candidates": [
+        "XRP/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "LINK",
+      "pair_candidates": [
+        "LINK/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "AVAX",
+      "pair_candidates": [
+        "AVAX/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "ADA",
+      "pair_candidates": [
+        "ADA/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva"
+    },
+    {
+      "asset": "DOGE",
+      "pair_candidates": [
+        "DOGE/EUR",
+        "XDG/EUR"
+      ],
+      "instrument_note": "Kraken Spot senza leva; nessuna leva"
+    },
+    {
+      "asset": "GOLD",
+      "pair_candidates": [
+        "PAXG/EUR",
+        "XAUT/EUR",
+        "XAUT/USD"
+      ],
+      "instrument_note": "Token Spot collegato all’oro; non è oro fisico"
+    }
+  ]
+}
