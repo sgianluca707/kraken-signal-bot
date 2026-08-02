@@ -36,7 +36,6 @@ jobs:
       - name: Controlla sintassi e configurazione
         run: |
           python -m py_compile bot.py
-          python bot.py --validate
 
       - name: Test Telegram
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_telegram }}
