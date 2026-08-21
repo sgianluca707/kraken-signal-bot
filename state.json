@@ -6,6 +6,9 @@
   "last_signal_at": {},
   "last_signals_sent": 0,
   "paper_trades": [],
-  "signals": {},
+  "signals": {
+    "XRP": "XRP:1.2319:1787352600",
+    "DOGE": "DOGE:0.0801446:1787352300"
+  },
   "version": "3.0.0"
 }
